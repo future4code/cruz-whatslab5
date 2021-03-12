@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import icon from '../img/user.png';
 
 const Container = styled.div`
   display: flex;
@@ -37,13 +38,13 @@ export default class extends React.Component {
         return (
           <Container style={{ alignSelf: "flex-end" }}>
             <Mensagem>{this.props.texto}</Mensagem>
-            <Avatar src="https://www.flaticon.com/svg/vstatic/svg/149/149071.svg?token=exp=1615562533~hmac=a4d4a746381e3addff9a98d97147198c" />
+            <Avatar src={icon} />
           </Container>
         );
       } else {
         return (
           <Container>
-            <Avatar src="https://www.flaticon.com/svg/vstatic/svg/149/149071.svg?token=exp=1615562533~hmac=a4d4a746381e3addff9a98d97147198c" />
+            <Avatar src={icon} />
             <Mensagem style={{backgroundColor:'white'}}>
               <Autor>{this.props.autor}</Autor>
               {this.props.texto}

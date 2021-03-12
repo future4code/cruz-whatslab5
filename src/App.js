@@ -66,10 +66,10 @@ class App extends React.Component {
   mensagemHandle = (event) =>{
     this.setState({InputMensagem: event.target.value})
   }
-  apagarMensagem = (usuario) => {
-    let novasMensagens = this.state.mensagens.filter((mensagem)=>
+  apagarMensagem = (index) => {
+    let novasMensagens = this.state.mensagens.filter((mensagem,i)=>
     {
-      if(!(mensagem.usuario === usuario)){
+      if(!(i === index)){
         return true;
       }
     })
@@ -87,8 +87,8 @@ class App extends React.Component {
   };
 
   render() {
-    const mensagens = this.state.mensagens.map((mensagem) => {
-      return <div style={{display:"flex", flexDirection:'column'}} onDoubleClick={()=>this.apagarMensagem(mensagem.usuario)}><Mensagem  autor={mensagem.usuario} texto={mensagem.texto} /></div>;
+    const mensagens = this.state.mensagens.map((mensagem,i) => {
+      return <div style={{display:"flex", flexDirection:'column'}} onDoubleClick={()=>this.apagarMensagem(i)}><Mensagem  autor={mensagem.usuario} texto={mensagem.texto} /></div>;
     });
 
     return (
