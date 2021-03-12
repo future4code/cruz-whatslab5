@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
 import React from 'react'
-import './App.css';
 import styled from 'styled-components'
 import { Whatslab } from './components/Whatslab';
 import Mensagem from './components/Mensagem.js'
@@ -29,7 +28,11 @@ class App extends React.Component {
     super()
 
     this.state = {
-      mensagens: []
+      mensagens: [
+        {autor: 'Nicolas', texto: 'Mensagem de teste'},
+        {autor: 'Alexandre', texto: 'Mensagem de teste'},
+        {autor: 'eu', texto: 'Mensagem de teste'}
+      ]
     }
   }
 
@@ -37,11 +40,15 @@ class App extends React.Component {
     this.setState({mensagens: [...this.state.mensagens, mensagem]})
   }
 
+
   render() {
+    const mensagens = this.state.mensagens.map((mensagem)=>{
+      return <Mensagem autor={mensagem.autor} texto={mensagem.texto}/>
+    })
     return (
       <div>
         <div>
-          {this.state.mensagens.map((mensagem, index) => <p key={index}><span>{mensagem.usuario}</span>{': ' + mensagem.texto}</p>)}
+          {mensagens}
         </div>
         <form adicionaMensagem={this.adicionaMensagem} />
       </div>
