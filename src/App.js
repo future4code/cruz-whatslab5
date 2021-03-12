@@ -3,6 +3,7 @@ import React from 'react'
 import './App.css';
 import styled from 'styled-components'
 import { Whatslab } from './components/Whatslab';
+import Mensagem from './components/Mensagem.js'
 
 
 // const ContainerDoApp = styled.div`
@@ -46,7 +47,6 @@ class App extends React.Component {
       </div>
     );
   }
-
 }
 
 export default App;
