@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react';
-import React from 'react'
-import styled from 'styled-components'
-import { Whatslab } from './components/Whatslab';
-import Mensagem from './components/Mensagem.js'
-
+import { render } from "@testing-library/react";
+import React from "react";
+import styled from "styled-components";
+import { Whatslab } from "./components/Whatslab";
+import Mensagem from "./components/Mensagem.js";
 
 // const ContainerDoApp = styled.div`
 //   display: flex;
@@ -22,42 +21,61 @@ import Mensagem from './components/Mensagem.js'
 //   justify-content: flex-end;
 // `
 
-
 class App extends React.Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       mensagens: [
-        {autor: 'Nicolas', texto: 'Mensagem de teste'},
-        {autor: 'Alexandre', texto: 'Mensagem de teste'},
-        {autor: 'eu', texto: 'Mensagem de teste'}
-      ]
+        {usuario: 'eu', texto: 'teste'},
+        {usuario: 'Usuario', texto: 'teste'}
+      ],
+      inputUsuario: '',
+      InputMensagem: '',
+    };
+  }
+
+
+
+  usuarioHandle = (event) =>{
+    this.setState({inputUsuario: event.target.value})
+  }
+  mensagemHandle = (event) =>{
+    this.setState({InputMensagem: event.target.value})
+  }
+  apagarMensagem = (usuario) => {
+    let novasMensagens = this.state.mensagens.filter((mensagem)=>
+    {
+      if(!(mensagem.usuario === usuario)){
+        return true;
+      }
+    })
+    this.setState({mensagens: novasMensagens})
+  }
+  adicionaMensagem = () => {
+    let novaMensagem = {
+      usuario: this.state.inputUsuario,
+      texto: this.state.InputMensagem,
     }
-  }
-
-  adicionaMensagem = (mensagem) => {
-    this.setState({mensagens: [...this.state.mensagens, mensagem]})
-  }
-
+    if(novaMensagem.usuario === undefined || novaMensagem.usuario === '' || novaMensagem.texto === '' || novaMensagem.texto === undefined){
+      return(alert('Preencha todos os campos'));
+    }
+    this.setState({ mensagens: [...this.state.mensagens, novaMensagem] });
+  };
 
   render() {
-    const mensagens = this.state.mensagens.map((mensagem)=>{
-      return <Mensagem autor={mensagem.autor} texto={mensagem.texto}/>
-    })
+    const mensagens = this.state.mensagens.map((mensagem) => {
+      return <div style={{display:"flex", flexDirection:'column'}} onDoubleClick={()=>this.apagarMensagem(mensagem.usuario)}><Mensagem  autor={mensagem.usuario} texto={mensagem.texto} /></div>;
+    });
     return (
       <div>
-        <div>
-          {mensagens}
-        </div>
-        <form adicionaMensagem={this.adicionaMensagem} />
+        {mensagens}
+        <input value={this.state.inputUsuario} onChange={this.usuarioHandle} placeholder="Usuario" />
+        <input value={this.state.InputMensagem} onChange={this.mensagemHandle} placeholder="Mensagem" />
+        <button onClick={this.adicionaMensagem} >Enviar</button>
       </div>
     );
   }
 }
 
 export default App;
-
-
-
-
