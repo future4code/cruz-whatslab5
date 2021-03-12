@@ -1,15 +1,56 @@
+import { render } from '@testing-library/react';
+import React from 'react'
+import './App.css';
+import styled from 'styled-components'
+import { Whatslab } from './components/Whatslab';
 import Mensagem from './components/Mensagem.js'
 
-function App() {
-  return (
-    <div style={{backgroundColor:'gainsboro', width:'1000px', display:'flex', flexDirection:'column'}}>
-      <Mensagem autor='Nicolas' texto='Está é mensagem!'/>
-      <Mensagem autor='Eu' texto='E está é a minha mensagem!'/>
-      <Mensagem autor='Lorem' texto='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis iaculis mauris vitae dui laoreet sodales. Proin feugiat a libero et porta. Praesent id auctor nibh, sit amet cursus massa. Maecenas pretium eget nisi vitae malesuada. Proin tincidunt sodales velit, at commodo arcu. Donec ut justo consequat diam tempus sagittis vitae sit amet justo.'/>
-      <Mensagem autor='eu' texto='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis iaculis mauris vitae dui laoreet sodales. Proin feugiat a libero et porta. Praesent id auctor nibh, sit amet cursus massa. Maecenas pretium eget nisi vitae malesuada. Proin tincidunt sodales velit, at commodo arcu. Donec ut justo consequat diam tempus sagittis vitae sit amet justo.'/>
 
-    </div>
-  );
+// const ContainerDoApp = styled.div`
+//   display: flex;
+//   flex: 1;
+//   flex-direction: column;
+//   max-width: 600px;
+//   height: 100vh;
+//   border: 1px solid black;
+// `;
+
+// const ContainerDaMensagem = styled.div`
+//   display: flex;
+//   flex: 1;
+//   flex-direction: column;
+//   padding: 20px;
+//   justify-content: flex-end;
+// `
+
+
+class App extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      mensagens: []
+    }
+  }
+
+  adicionaMensagem = (mensagem) => {
+    this.setState({mensagens: [...this.state.mensagens, mensagem]})
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          {this.state.mensagens.map((mensagem, index) => <p key={index}><span>{mensagem.usuario}</span>{': ' + mensagem.texto}</p>)}
+        </div>
+        <form adicionaMensagem={this.adicionaMensagem} />
+      </div>
+    );
+  }
 }
 
 export default App;
+
+
+
+
