@@ -2,24 +2,46 @@ import { render } from "@testing-library/react";
 import React from "react";
 import styled from "styled-components";
 import { Whatslab } from "./components/Whatslab";
-import Mensagem from "./components/Mensagem.js";
+import Mensagem from "./components/Mensagem";
 
-// const ContainerDoApp = styled.div`
-//   display: flex;
-//   flex: 1;
-//   flex-direction: column;
-//   max-width: 600px;
-//   height: 100vh;
-//   border: 1px solid black;
-// `;
+const ContainerMensagem = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 30%;  
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #d0e1e1;
+  flex: 1 1 0%;
+  height: 100vh;
+  border: 1px solid black;
 
-// const ContainerDaMensagem = styled.div`
-//   display: flex;
-//   flex: 1;
-//   flex-direction: column;
-//   padding: 20px;
-//   justify-content: flex-end;
-// `
+`
+
+const UsuarioInput = styled.input`
+  padding: 5px;
+  font-size: 16px;
+  border: medium none;
+  border-radius: 5px;
+  margin: 8px;
+`
+
+const TextoInput = styled.input`
+  padding: 5px;
+  font-size: 16px;
+  border: medium none;
+  border-radius: 5px;
+  margin: 8px;
+`
+
+const BotaoEnviar = styled.button`
+  border: medium none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  margin: 10px;
+  background-color: white;
+`
 
 class App extends React.Component {
   constructor() {
@@ -30,6 +52,7 @@ class App extends React.Component {
         {usuario: 'eu', texto: 'teste'},
         {usuario: 'Usuario', texto: 'teste'}
       ],
+
       inputUsuario: '',
       InputMensagem: '',
     };
@@ -67,13 +90,16 @@ class App extends React.Component {
     const mensagens = this.state.mensagens.map((mensagem) => {
       return <div style={{display:"flex", flexDirection:'column'}} onDoubleClick={()=>this.apagarMensagem(mensagem.usuario)}><Mensagem  autor={mensagem.usuario} texto={mensagem.texto} /></div>;
     });
+
     return (
+      <ContainerMensagem>
       <div>
         {mensagens}
-        <input value={this.state.inputUsuario} onChange={this.usuarioHandle} placeholder="Usuario" />
-        <input value={this.state.InputMensagem} onChange={this.mensagemHandle} placeholder="Mensagem" />
-        <button onClick={this.adicionaMensagem} >Enviar</button>
+        <UsuarioInput value={this.state.inputUsuario} onChange={this.usuarioHandle} placeholder="Usuario" />
+        <TextoInput value={this.state.InputMensagem} onChange={this.mensagemHandle} placeholder="Mensagem" />
+        <BotaoEnviar onClick={this.adicionaMensagem} >Enviar</BotaoEnviar>
       </div>
+      </ContainerMensagem>
     );
   }
 }
